@@ -3,8 +3,7 @@ package IO::Socket::ByteCounter;
 use base 'IO::Socket';
 
 use strict;
-
-# use warnings;
+use warnings;
 
 our $VERSION = 0.3;
 
@@ -43,6 +42,7 @@ sub record_bytes {
 		 	
             # IO::Socket::recv 
             my \$recv = \\&$pkg\::recv;
+            no warnings "redefine";
             \*$pkg\::recv = sub {
                 my \$self = \$_[0];
 		        \${\*\$self}{'io_socket_bytecounter_in'} += \$_[2];
