@@ -14,4 +14,18 @@ WriteMakefile(
           )
         : ()
     ),
+    META_ADD => {
+        'meta-spec'    => { version => 2 },
+        dynamic_config => 0,
+        resources      => {
+            repository => {
+                url  => 'https://github.com/drmuey/p5-IO-Socket-ByteCounter.git',
+                web  => 'https://github.com/drmuey/p5-IO-Socket-ByteCounter',
+                type => 'git',
+            },
+            bugtracker => {
+                web => 'https://github.com/drmuey/p5-IO-Socket-ByteCounter/issues',
+            },
+        },
+    },
 );

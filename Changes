@@ -7,6 +7,7 @@ Revision history for Perl extension IO::Socket::ByteCounter.
         - enable warnings
         - tidy
         - fixup prereq
+        - change issues from rt to github
 0.0.2  Tue Jan 16 17:55:55 2007
 	- fixed up Makefile.PL
 
