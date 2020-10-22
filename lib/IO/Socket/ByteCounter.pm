@@ -3,6 +3,7 @@ package IO::Socket::ByteCounter;
 use base 'IO::Socket';
 
 use strict;
+
 # use warnings;
 
 our $VERSION = 0.3;
@@ -12,22 +13,22 @@ sub import {
 }
 
 sub record_bytes {
-	my ($self, @pkgs)     =  @_;
+    my ( $self, @pkgs ) = @_;
 
     for my $pkg (@pkgs) {
         $pkg = ref $pkg if ref $pkg;
-        
+
         my $inc = $pkg;
         $inc =~ s{::}{/}g;
-        if(!exists $INC{$inc . '.pm'}) {
+        if ( !exists $INC{ $inc . '.pm' } ) {
             eval "use $pkg;";
             warn $@ if $@;
             next if $@;
         }
-         
+
         no strict;
-        next if ${ "$pkg\::io_socket_bytecounter_on" };
-        
+        next if ${"$pkg\::io_socket_bytecounter_on"};
+
         eval <<"OVERRIDE_END";
             \$$pkg\::io_socket_bytecounter_on = 1;
            
@@ -75,16 +76,16 @@ OVERRIDE_END
 }
 
 sub _get_byte_size {
-    my($self, @strings) = @_;
+    my ( $self, @strings ) = @_;
     my $bytes = 0;
-    
+
     {
         use bytes;
         for my $string (@strings) {
             $bytes += length($string);
         }
     }
-    
+
     return $bytes;
 }
 
