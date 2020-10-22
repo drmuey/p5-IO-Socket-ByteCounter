@@ -30,30 +30,30 @@ sub record_bytes {
 
         eval <<"OVERRIDE_END";
             \$$pkg\::io_socket_bytecounter_on = 1;
-           
+            no warnings "redefine";
+
             #### IO::Socket methods ##
-            # IO::Socket::send   
+            # IO::Socket::send
             my \$send = \\&$pkg\::send;
             \*$pkg\::send = sub {
                 my \$self = \$_[0];
                 \${\*\$self}{'io_socket_bytecounter_out'} += IO::Socket::ByteCounter->_get_byte_size(\$_[1]);
-	            \$send->(\@_); 
+	            \$send->(\@_);
             };
-		 	
-            # IO::Socket::recv 
+
+            # IO::Socket::recv
             my \$recv = \\&$pkg\::recv;
-            no warnings "redefine";
             \*$pkg\::recv = sub {
                 my \$self = \$_[0];
 		        \${\*\$self}{'io_socket_bytecounter_in'} += \$_[2];
 		        \$recv->(\@_);
             };
-           
+
             #### IO::Handle methods ##
- 
- 
+
+
             #### new methods ##
-           
+
             sub $pkg\::get_bytes_in {
                 my \$self = \$_[0];
                 \${\*\$self}{'io_socket_bytecounter_in'};
@@ -63,7 +63,7 @@ sub record_bytes {
                 my \$self = \$_[0];
                 \${\*\$self}{'io_socket_bytecounter_out'};
             }
-            
+
             sub $pkg\::get_bytes_total {
                 my \$self = \$_[0];
                 \${\*\$self}{'io_socket_bytecounter_in'} + \${\*\$self}{'io_socket_bytecounter_out'};
@@ -111,9 +111,9 @@ then:
 
     ... normal IO::Socket::INET object (as $sock) use ...
 
-    print 'Bytes out: ',   $sock->get_bytes_out,   "\n";  
+    print 'Bytes out: ',   $sock->get_bytes_out,   "\n";
     print 'Bytes in: ',    $sock->get_bytes_in ,   "\n";
-    print 'Bytes total: ', $sock->get_bytes_total, "\n";  
+    print 'Bytes total: ', $sock->get_bytes_total, "\n";
 
 =head1 METHODS
 
