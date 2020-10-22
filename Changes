@@ -4,7 +4,9 @@ Revision history for Perl extension IO::Socket::ByteCounter.
         - rt 129909: remove peer argument from send() in test for perl 5.32
           - thanks: TONYC, jkeenan, and TODDR
         - change to simpler decimal version
-
+        - enable warnings
+        - tidy
+        - fixup prereq
 0.0.2  Tue Jan 16 17:55:55 2007
 	- fixed up Makefile.PL
 
