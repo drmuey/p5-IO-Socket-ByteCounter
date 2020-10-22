@@ -4,7 +4,7 @@ WriteMakefile(
     NAME              => 'IO::Socket::ByteCounter',
     VERSION_FROM      => 'lib/IO/Socket/ByteCounter.pm', 
     PREREQ_PM         => {
-        'version' => 0,
+        'IO::Socket' => 0,
     }, 
     ($] >= 5.005 ?   
       (ABSTRACT_FROM  => 'lib/IO/Socket/ByteCounter.pm',
