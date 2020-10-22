@@ -17,7 +17,7 @@ if(my $pid = fork()) {
     if (defined $sock) {
         my $buf;
     	$sock->recv($buf, 12);      
-        $sock->send("Hello Yourself, Lovely weather today", 0, 'mypeer');
+        $sock->send("Hello Yourself, Lovely weather today", 0);
         
         ok($sock->get_bytes_out() eq '36', 'bytes out');
         ok($sock->get_bytes_in()  eq '12', 'bytes in');
@@ -35,7 +35,7 @@ if(my $pid = fork()) {
 elsif(defined $pid) {
     my $sock = IO::Socket::UNIX->new('Peer' => $path) or die "$!";
     
-    $sock->send("Hello World\n", 0, 'mypeer');
+    $sock->send("Hello World\n", 0);
     my $buf;
     $sock->recv($buf, 36); 
     

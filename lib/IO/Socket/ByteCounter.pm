@@ -5,7 +5,7 @@ use base 'IO::Socket';
 use strict;
 # use warnings;
 
-use version;our $VERSION = qv('0.0.2');
+our $VERSION = 0.3;
 
 sub import {
     shift->record_bytes(@_) if @_;
